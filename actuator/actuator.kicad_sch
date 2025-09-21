@@ -5,6 +5,113 @@
 	(uuid "d14c9293-d7c7-4753-99a3-bdd4002b1375")
 	(paper "A4")
 	(lib_symbols
+		(symbol "Connector:TestPoint"
+			(pin_numbers
+				(hide yes)
+			)
+			(pin_names
+				(offset 0.762)
+				(hide yes)
+			)
+			(exclude_from_sim no)
+			(in_bom yes)
+			(on_board yes)
+			(property "Reference" "TP"
+				(at 0 6.858 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Value" "TestPoint"
+				(at 0 5.08 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Footprint" ""
+				(at 5.08 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Datasheet" "~"
+				(at 5.08 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Description" "test point"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "ki_keywords" "test point tp"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "ki_fp_filters" "Pin* Test*"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(symbol "TestPoint_0_1"
+				(circle
+					(center 0 3.302)
+					(radius 0.762)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+			)
+			(symbol "TestPoint_1_1"
+				(pin passive line
+					(at 0 0 90)
+					(length 2.54)
+					(name "1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+			)
+			(embedded_fonts no)
+		)
 		(symbol "Connector_Generic:Conn_01x04"
 			(pin_names
 				(offset 1.016)
@@ -883,6 +990,130 @@
 			)
 			(embedded_fonts no)
 		)
+		(symbol "Device:R"
+			(pin_numbers
+				(hide yes)
+			)
+			(pin_names
+				(offset 0)
+			)
+			(exclude_from_sim no)
+			(in_bom yes)
+			(on_board yes)
+			(property "Reference" "R"
+				(at 2.032 0 90)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Value" "R"
+				(at 0 0 90)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Footprint" ""
+				(at -1.778 0 90)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Datasheet" "~"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Description" "Resistor"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "ki_keywords" "R res resistor"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "ki_fp_filters" "R_*"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(symbol "R_0_1"
+				(rectangle
+					(start -1.016 -2.54)
+					(end 1.016 2.54)
+					(stroke
+						(width 0.254)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+			)
+			(symbol "R_1_1"
+				(pin passive line
+					(at 0 3.81 270)
+					(length 1.27)
+					(name "~"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at 0 -3.81 90)
+					(length 1.27)
+					(name "~"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "2"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+			)
+			(embedded_fonts no)
+		)
 		(symbol "MCU_ST_STM32G0:STM32G030F6Px"
 			(exclude_from_sim no)
 			(in_bom yes)
@@ -1386,6 +1617,7 @@
 							)
 						)
 					)
+					(alternate "" input line)
 					(alternate "ADC1_EXTI11 (PA11)" bidirectional line)
 					(alternate "ADC1_IN15 (PA11)" bidirectional line)
 					(alternate "I2C1_SCL (PA9)" bidirectional line)
@@ -1393,7 +1625,6 @@
 					(alternate "I2S1_MCK (PA11)" bidirectional line)
 					(alternate "PA11" bidirectional line)
 					(alternate "PA9" bidirectional line)
-					(alternate "" input line)
 					(alternate "RCC_MCO (PA9)" bidirectional line)
 					(alternate "SPI1_MISO (PA11)" bidirectional line)
 					(alternate "SPI2_MISO (PA9)" bidirectional line)
@@ -2096,6 +2327,131 @@
 			)
 			(embedded_fonts no)
 		)
+		(symbol "power:+24V"
+			(power)
+			(pin_numbers
+				(hide yes)
+			)
+			(pin_names
+				(offset 0)
+				(hide yes)
+			)
+			(exclude_from_sim no)
+			(in_bom yes)
+			(on_board yes)
+			(property "Reference" "#PWR"
+				(at 0 -3.81 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Value" "+24V"
+				(at 0 3.556 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Footprint" ""
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Datasheet" ""
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Description" "Power symbol creates a global label with name \"+24V\""
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "ki_keywords" "global power"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(symbol "+24V_0_1"
+				(polyline
+					(pts
+						(xy -0.762 1.27) (xy 0 2.54)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 0 2.54) (xy 0.762 1.27)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 0 0) (xy 0 2.54)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+			)
+			(symbol "+24V_1_1"
+				(pin power_in line
+					(at 0 0 90)
+					(length 0)
+					(name "~"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+			)
+			(embedded_fonts no)
+		)
 		(symbol "power:+3.3V"
 			(power)
 			(pin_numbers
@@ -2200,131 +2556,6 @@
 				)
 			)
 			(symbol "+3.3V_1_1"
-				(pin power_in line
-					(at 0 0 90)
-					(length 0)
-					(name "~"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "1"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-			)
-			(embedded_fonts no)
-		)
-		(symbol "power:+48V"
-			(power)
-			(pin_numbers
-				(hide yes)
-			)
-			(pin_names
-				(offset 0)
-				(hide yes)
-			)
-			(exclude_from_sim no)
-			(in_bom yes)
-			(on_board yes)
-			(property "Reference" "#PWR"
-				(at 0 -3.81 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(property "Value" "+48V"
-				(at 0 3.556 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(property "Footprint" ""
-				(at 0 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(property "Datasheet" ""
-				(at 0 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(property "Description" "Power symbol creates a global label with name \"+48V\""
-				(at 0 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(property "ki_keywords" "global power"
-				(at 0 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(symbol "+48V_0_1"
-				(polyline
-					(pts
-						(xy -0.762 1.27) (xy 0 2.54)
-					)
-					(stroke
-						(width 0)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(polyline
-					(pts
-						(xy 0 2.54) (xy 0.762 1.27)
-					)
-					(stroke
-						(width 0)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(polyline
-					(pts
-						(xy 0 0) (xy 0 2.54)
-					)
-					(stroke
-						(width 0)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-			)
-			(symbol "+48V_1_1"
 				(pin power_in line
 					(at 0 0 90)
 					(length 0)
@@ -2556,10 +2787,22 @@
 		(uuid "0ab79ee6-4840-4a89-be3b-2f3112724b5c")
 	)
 	(junction
+		(at 110.49 104.14)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "2c07cb9a-ca5a-4483-94f2-626970cc0c66")
+	)
+	(junction
 		(at 165.1 81.28)
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "33a9bef3-e99e-4c0e-81a1-6de5a1ca6015")
+	)
+	(junction
+		(at 99.06 121.92)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "69c4341d-6c72-4188-819c-2a5a068d3377")
 	)
 	(junction
 		(at 165.1 40.64)
@@ -2596,12 +2839,6 @@
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "cb4b00a6-2ca7-4920-9683-b8893f8d5836")
-	)
-	(junction
-		(at 110.49 104.14)
-		(diameter 0)
-		(color 0 0 0 0)
-		(uuid "fc84cca2-84f6-41e0-b0df-43bc005e7b54")
 	)
 	(no_connect
 		(at 91.44 57.15)
@@ -2683,7 +2920,7 @@
 	)
 	(wire
 		(pts
-			(xy 91.44 74.93) (xy 97.79 74.93)
+			(xy 91.44 74.93) (xy 100.33 74.93)
 		)
 		(stroke
 			(width 0)
@@ -2770,6 +3007,16 @@
 			(type default)
 		)
 		(uuid "5012a1af-b175-4394-bc74-f40fd1ee222a")
+	)
+	(wire
+		(pts
+			(xy 99.06 121.92) (xy 102.87 121.92)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "5a2de7ec-24ca-456a-a200-731f03eeb4a8")
 	)
 	(wire
 		(pts
@@ -2893,7 +3140,7 @@
 	)
 	(wire
 		(pts
-			(xy 97.79 121.92) (xy 102.87 121.92)
+			(xy 91.44 121.92) (xy 99.06 121.92)
 		)
 		(stroke
 			(width 0)
@@ -3062,7 +3309,7 @@
 		(uuid "727fd23b-722b-4ce8-8422-54e33df37d0d")
 	)
 	(label "PWM"
-		(at 97.79 121.92 0)
+		(at 91.44 121.92 0)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -3629,6 +3876,15 @@
 				(hide yes)
 			)
 		)
+		(property "Molex" "105310-2104"
+			(at 176.53 55.88 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "1"
 			(uuid "55562a9d-e9b3-45a7-badd-15658baa2c08")
 		)
@@ -3651,7 +3907,7 @@
 		)
 	)
 	(symbol
-		(lib_id "power:+48V")
+		(lib_id "power:+24V")
 		(at 110.49 104.14 0)
 		(unit 1)
 		(exclude_from_sim no)
@@ -3659,8 +3915,8 @@
 		(on_board yes)
 		(dnp no)
 		(fields_autoplaced yes)
-		(uuid "32bda986-8664-4aa6-a004-3db0dd11fa82")
-		(property "Reference" "#PWR020"
+		(uuid "2ffecf8c-bc04-4c59-81cb-77c5c5885d21")
+		(property "Reference" "#PWR08"
 			(at 110.49 107.95 0)
 			(effects
 				(font
@@ -3669,7 +3925,7 @@
 				(hide yes)
 			)
 		)
-		(property "Value" "+48V"
+		(property "Value" "+24V"
 			(at 110.49 99.06 0)
 			(effects
 				(font
@@ -3695,7 +3951,7 @@
 				(hide yes)
 			)
 		)
-		(property "Description" "Power symbol creates a global label with name \"+48V\""
+		(property "Description" "Power symbol creates a global label with name \"+24V\""
 			(at 110.49 104.14 0)
 			(effects
 				(font
@@ -3705,29 +3961,29 @@
 			)
 		)
 		(pin "1"
-			(uuid "2e1d7a82-a73f-467c-bf94-3c0ca6333b8a")
+			(uuid "7188019b-894d-4df1-8826-17a185e072fa")
 		)
 		(instances
 			(project "actuator"
 				(path "/d14c9293-d7c7-4753-99a3-bdd4002b1375"
-					(reference "#PWR020")
+					(reference "#PWR08")
 					(unit 1)
 				)
 			)
 		)
 	)
 	(symbol
-		(lib_id "power:+48V")
-		(at 157.48 33.02 0)
+		(lib_id "power:GND")
+		(at 99.06 129.54 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
 		(fields_autoplaced yes)
-		(uuid "3525e04b-b894-44d3-a110-a4c3c6d918ad")
-		(property "Reference" "#PWR017"
-			(at 157.48 36.83 0)
+		(uuid "3fad1659-877f-4484-8711-fd4c319972fd")
+		(property "Reference" "#PWR010"
+			(at 99.06 135.89 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3735,8 +3991,8 @@
 				(hide yes)
 			)
 		)
-		(property "Value" "+48V"
-			(at 157.48 27.94 0)
+		(property "Value" "GND"
+			(at 99.06 134.62 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3744,7 +4000,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 157.48 33.02 0)
+			(at 99.06 129.54 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3753,7 +4009,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 157.48 33.02 0)
+			(at 99.06 129.54 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3761,8 +4017,8 @@
 				(hide yes)
 			)
 		)
-		(property "Description" "Power symbol creates a global label with name \"+48V\""
-			(at 157.48 33.02 0)
+		(property "Description" "Power symbol creates a global label with name \"GND\" , ground"
+			(at 99.06 129.54 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3771,12 +4027,12 @@
 			)
 		)
 		(pin "1"
-			(uuid "a339b77e-842f-4cb0-801d-4cfbe709b353")
+			(uuid "54c5e6f5-df21-4e59-845a-4361adb21c27")
 		)
 		(instances
-			(project ""
+			(project "actuator"
 				(path "/d14c9293-d7c7-4753-99a3-bdd4002b1375"
-					(reference "#PWR017")
+					(reference "#PWR010")
 					(unit 1)
 				)
 			)
@@ -3895,6 +4151,15 @@
 			)
 		)
 		(property "Description" "Generic connector, single row, 01x04, script generated (kicad-library-utils/schlib/autogen/connector/)"
+			(at 176.53 76.2 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Molex" "105310-2104"
 			(at 176.53 76.2 0)
 			(effects
 				(font
@@ -4347,6 +4612,148 @@
 		)
 	)
 	(symbol
+		(lib_id "power:+24V")
+		(at 157.48 33.02 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "71c31d1a-3d73-40be-8617-7e5a2d9e98ea")
+		(property "Reference" "#PWR09"
+			(at 157.48 36.83 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Value" "+24V"
+			(at 157.48 27.94 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 157.48 33.02 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 157.48 33.02 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Power symbol creates a global label with name \"+24V\""
+			(at 157.48 33.02 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "77b2276c-1a41-4370-9543-27ffa6c241eb")
+		)
+		(instances
+			(project "actuator"
+				(path "/d14c9293-d7c7-4753-99a3-bdd4002b1375"
+					(reference "#PWR09")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Connector:TestPoint")
+		(at 100.33 74.93 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "749655db-e1f6-4181-b6fd-f9e5023a8299")
+		(property "Reference" "TP1"
+			(at 102.87 70.3579 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "PWM"
+			(at 102.87 72.8979 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "custom:TestPoint_RH-5015"
+			(at 105.41 74.93 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 105.41 74.93 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "test point"
+			(at 100.33 74.93 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "JLC P/N" "C5199798"
+			(at 100.33 74.93 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "aaa82442-ecd0-4bfc-9559-4f4af3dd3d2d")
+		)
+		(instances
+			(project ""
+				(path "/d14c9293-d7c7-4753-99a3-bdd4002b1375"
+					(reference "TP1")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
 		(lib_id "power:PWR_FLAG")
 		(at 149.86 35.56 90)
 		(unit 1)
@@ -4432,7 +4839,7 @@
 				(justify left)
 			)
 		)
-		(property "Value" "2N7002"
+		(property "Value" "FDV301N"
 			(at 114.3 123.1899 0)
 			(effects
 				(font
@@ -4468,7 +4875,7 @@
 				(hide yes)
 			)
 		)
-		(property "JLC P/N" "C8545"
+		(property "JLC P/N" "C15310"
 			(at 107.95 121.92 0)
 			(effects
 				(font
@@ -4496,7 +4903,7 @@
 		)
 	)
 	(symbol
-		(lib_id "power:+48V")
+		(lib_id "power:+24V")
 		(at 137.16 111.76 0)
 		(unit 1)
 		(exclude_from_sim no)
@@ -4504,8 +4911,8 @@
 		(on_board yes)
 		(dnp no)
 		(fields_autoplaced yes)
-		(uuid "8a03b325-4cfe-4893-8f44-ec7c76f8b391")
-		(property "Reference" "#PWR019"
+		(uuid "8f7f27ef-2723-4bba-a3c6-a27a13b226ad")
+		(property "Reference" "#PWR01"
 			(at 137.16 115.57 0)
 			(effects
 				(font
@@ -4514,7 +4921,7 @@
 				(hide yes)
 			)
 		)
-		(property "Value" "+48V"
+		(property "Value" "+24V"
 			(at 137.16 106.68 0)
 			(effects
 				(font
@@ -4540,7 +4947,7 @@
 				(hide yes)
 			)
 		)
-		(property "Description" "Power symbol creates a global label with name \"+48V\""
+		(property "Description" "Power symbol creates a global label with name \"+24V\""
 			(at 137.16 111.76 0)
 			(effects
 				(font
@@ -4550,12 +4957,88 @@
 			)
 		)
 		(pin "1"
-			(uuid "291fe506-a380-4de0-bda1-101eba9a7b18")
+			(uuid "cb5839e9-285a-487d-8101-c422ebda31aa")
 		)
 		(instances
-			(project "actuator"
+			(project ""
 				(path "/d14c9293-d7c7-4753-99a3-bdd4002b1375"
-					(reference "#PWR019")
+					(reference "#PWR01")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Connector:TestPoint")
+		(at 110.49 116.84 270)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "92964730-d1ad-4843-8bde-cf676c28b436")
+		(property "Reference" "TP2"
+			(at 115.57 115.5699 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "Solenoid"
+			(at 115.57 118.1099 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "custom:TestPoint_RH-5015"
+			(at 110.49 121.92 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 110.49 121.92 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "test point"
+			(at 110.49 116.84 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "JLC P/N" "C5199798"
+			(at 110.49 116.84 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "c71c2192-0bdc-4bed-b6ea-2f0920f8d37b")
+		)
+		(instances
+			(project ""
+				(path "/d14c9293-d7c7-4753-99a3-bdd4002b1375"
+					(reference "TP2")
 					(unit 1)
 				)
 			)
@@ -4819,6 +5302,15 @@
 			)
 		)
 		(property "Description" "Generic connector, single row, 01x04, script generated (kicad-library-utils/schlib/autogen/connector/)"
+			(at 176.53 35.56 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Molex" "105310-2104"
 			(at 176.53 35.56 0)
 			(effects
 				(font
@@ -5137,6 +5629,85 @@
 			(project "actuator"
 				(path "/d14c9293-d7c7-4753-99a3-bdd4002b1375"
 					(reference "J4")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Device:R")
+		(at 99.06 125.73 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "c1521960-2c3f-4eb4-aafb-9b42743d45d1")
+		(property "Reference" "R1"
+			(at 101.6 124.4599 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "10k"
+			(at 101.6 126.9999 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "Resistor_SMD:R_0603_1608Metric"
+			(at 97.282 125.73 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 99.06 125.73 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Resistor"
+			(at 99.06 125.73 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "JLC P/N" "C25804"
+			(at 99.06 125.73 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "c0711423-0b1a-49db-8c53-4c0f42527095")
+		)
+		(pin "2"
+			(uuid "b4fc510e-2a45-4948-9ef9-78a6504d7834")
+		)
+		(instances
+			(project ""
+				(path "/d14c9293-d7c7-4753-99a3-bdd4002b1375"
+					(reference "R1")
 					(unit 1)
 				)
 			)
