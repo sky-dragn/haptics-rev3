@@ -1393,6 +1393,7 @@
 					(alternate "I2S1_MCK (PA11)" bidirectional line)
 					(alternate "PA11" bidirectional line)
 					(alternate "PA9" bidirectional line)
+					(alternate "" input line)
 					(alternate "RCC_MCO (PA9)" bidirectional line)
 					(alternate "SPI1_MISO (PA11)" bidirectional line)
 					(alternate "SPI2_MISO (PA9)" bidirectional line)
@@ -3269,6 +3270,15 @@
 				(hide yes)
 			)
 		)
+		(property "JLC P/N" "C18199088"
+			(at 104.14 110.49 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "2"
 			(uuid "a2eee70a-698e-415e-8413-a7260a3ac2d2")
 		)
@@ -3463,6 +3473,15 @@
 			)
 		)
 		(property "Description" "Unpolarized capacitor"
+			(at 33.02 38.1 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "JLC P/N" "C14663"
 			(at 33.02 38.1 0)
 			(effects
 				(font
@@ -4027,6 +4046,15 @@
 				(hide yes)
 			)
 		)
+		(property "JLC P/N" "C19666"
+			(at 45.72 38.1 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "1"
 			(uuid "4d238e54-6caa-4c62-9d7c-8901ec5fb716")
 		)
@@ -4432,6 +4460,15 @@
 			)
 		)
 		(property "Description" "N-MOSFET transistor, gate/source/drain"
+			(at 107.95 121.92 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "JLC P/N" "C8545"
 			(at 107.95 121.92 0)
 			(effects
 				(font
@@ -4859,6 +4896,15 @@
 			)
 		)
 		(property "Description" "STMicroelectronics Arm Cortex-M0+ MCU, 32KB flash, 8KB RAM, 64 MHz, 2.0-3.6V, 17 GPIO, TSSOP20"
+			(at 66.04 69.85 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "JLC P/N" "C529330"
 			(at 66.04 69.85 0)
 			(effects
 				(font
