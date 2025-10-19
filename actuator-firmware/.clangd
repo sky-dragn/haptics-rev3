@@ -1,0 +1,7 @@
+CompileFlags:
+  CompilationDatabase: build/
+  Remove:
+    - -mcpu=*
+  Add:
+    - -std=gnu17
+    - -Wno-unused-includes
