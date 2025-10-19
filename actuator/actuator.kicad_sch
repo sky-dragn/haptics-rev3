@@ -1625,6 +1625,7 @@
 					(alternate "I2S1_MCK (PA11)" bidirectional line)
 					(alternate "PA11" bidirectional line)
 					(alternate "PA9" bidirectional line)
+					(alternate "" input line)
 					(alternate "RCC_MCO (PA9)" bidirectional line)
 					(alternate "SPI1_MISO (PA11)" bidirectional line)
 					(alternate "SPI2_MISO (PA9)" bidirectional line)
