@@ -8,6 +8,7 @@ import android.content.IntentFilter
 import android.hardware.usb.UsbManager
 import android.os.Bundle
 import android.util.Log
+import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
@@ -18,39 +19,32 @@ import androidx.compose.material3.Text
 import androidx.compose.ui.Modifier
 import com.hoho.android.usbserial.driver.UsbSerialPort
 import com.hoho.android.usbserial.driver.UsbSerialProber
-import com.illposed.osc.OSCMessageEvent
-import com.illposed.osc.OSCMessageListener
-import com.illposed.osc.messageselector.OSCPatternAddressMessageSelector
-import com.illposed.osc.transport.OSCPortIn
 import xyz.dragn.hapticsrev3.ui.theme.HapticsRev3Theme
+import java.io.IOException
 import java.net.DatagramPacket
 import java.net.DatagramSocket
-import java.net.InetSocketAddress
-import java.net.SocketAddress
+import java.net.SocketTimeoutException
 import java.nio.ByteBuffer
-import java.util.Timer
-import java.util.TimerTask
 
 const val ACTION_USB_PERMISSION = "xyz.dragn.hapticsrev3.USB_PERMISSION"
 
-val POINT_MAP = mapOf(
-    0 to 1,
-    1 to 0,
-    2 to 2,
-    3 to 6
-)
+const val PORT = 9001
 
 class MainActivity : ComponentActivity() {
-    var text = "hello\n"
-
-    fun updateText() {
-        setContent {
-            HapticsRev3Theme {
-                Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    Text(
-                        text = text,
-                        modifier = Modifier.padding(innerPadding)
-                    )
+    val statuses = HashMap<String, String>()
+    fun setStatus(who: String, text: String) {
+        synchronized(statuses) {
+            statuses.put(who, text)
+        }
+        runOnUiThread {
+            setContent {
+                HapticsRev3Theme {
+                    Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
+                        Text(
+                            text = "$statuses",
+                            modifier = Modifier.padding(innerPadding)
+                        )
+                    }
                 }
             }
         }
@@ -64,20 +58,80 @@ class MainActivity : ComponentActivity() {
 //        }
     }
 
+    fun toast(x: String) {
+        log(x)
+        runOnUiThread {
+            Toast.makeText(this, x, Toast.LENGTH_SHORT).show()
+        }
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        enableEdgeToEdge()
+
+        log("onCreate")
+
+        setStatus("serial", "uninit")
+        setStatus("network", "uninit")
+
+        // create threads if they are dead
+        try {
+            if (threadNetworkInst == null) {
+                threadNetworkInst = Thread { threadNetwork() }
+                threadNetworkInst!!.start()
+            }
+            if (threadSerialInst == null) {
+                threadSerialInst = Thread { threadSerial() }
+                threadSerialInst!!.start()
+            }
+        } catch (e: Exception) {
+            log("error creating threads: $e")
+        }
+
+        // open serial if we can
+        openSerial()
+    }
+
+    var usbReceiver: UsbReceiver? = null
+    override fun onResume() {
+        super.onResume()
+        usbReceiver = UsbReceiver(this)
+        registerReceiver(usbReceiver, IntentFilter(ACTION_USB_PERMISSION), RECEIVER_EXPORTED)
+    }
+
+    override fun onPause() {
+        super.onPause()
+        unregisterReceiver(usbReceiver)
+    }
+
+    override fun onNewIntent(intent: Intent?) {
+        if (intent?.action == "android.hardware.usb.action.USB_DEVICE_ATTACHED") {
+            super.onNewIntent(intent)
+        }
+        log("detected")
+        openSerial()
+    }
+
     val pokeys = ByteArray(32)
 
     var serial: UsbSerialPort? = null
 
     fun openSerial() {
+        // don't re-open
+        if (serial?.isOpen == true) {
+            log("already open")
+            return
+        }
+        setStatus("serial", "opening")
 
         // Find all available drivers from attached devices.
         val manager = getSystemService(USB_SERVICE) as UsbManager
         val availableDrivers = UsbSerialProber.getDefaultProber().findAllDrivers(manager)
         if (availableDrivers.isEmpty()) {
-            log("no devices")
+            toast("No serial devices")
+            setStatus("serial", "closed")
             return
         }
-
 
         // Open a connection to the first available driver.
         val driver = availableDrivers[0]
@@ -92,92 +146,100 @@ class MainActivity : ComponentActivity() {
         }
 
         if (driver.ports.isEmpty()) {
-            log("no ports")
+            toast("Serial device has no ports")
+            setStatus("serial", "closed")
             return
         }
-        serial = driver.ports[0] // Most devices have just one port (port 0)
-        serial!!.open(connection)
-        serial!!.setParameters(115200, 8, UsbSerialPort.STOPBITS_1, UsbSerialPort.PARITY_NONE)
+        val x = driver.ports[0] // Most devices have just one port (port 0)
+        x.open(connection)
+        x.setParameters(115200, 8, UsbSerialPort.STOPBITS_1, UsbSerialPort.PARITY_NONE)
+        x.write(byteArrayOf(0x00), 0)
+        serial = x
 
-        log("serial port open!")
-        serial!!.write(byteArrayOf(0x00), 0)
+        setStatus("serial", "open")
     }
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
-        updateText()
-        registerReceiver(UsbReceiver(this), IntentFilter(ACTION_USB_PERMISSION), RECEIVER_EXPORTED)
-        openSerial()
+    var threadNetworkInst: Thread? = null
+    fun threadNetwork() {
+        setStatus("network", "opening")
+        val sock = try {
+            DatagramSocket(PORT)
+        } catch (e: Exception) {
+            setStatus("network", "failed")
+            toast("error opening socket: $e")
+            return
+        }
+        sock.soTimeout = 2000
+        setStatus("network", "open on $PORT")
 
-        Timer().schedule(object : TimerTask() {
-            override fun run() {
-                if (serial == null) {
-//                    log("closed")
-                } else {
-//                    log("pat")
-                    try {
-//                        serial!!.write(byteArrayOf(0x01, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1), 0)
+        while (true) {
+            try {
+                val pkt = DatagramPacket(ByteArray(256), 256)
+                sock.receive(pkt)
+                val addrlen = pkt.data.indexOf(0)
+                val addr = pkt.data.decodeToString(0, addrlen)
+                val addrend = (addrlen + 4) / 4 * 4
+                if (!addr.startsWith("/avatar/parameters/SkyHaptics_")) {
+                    continue
+                }
+                if (pkt.data.slice(addrend until addrend + 4) != listOf(
+                        ','.code.toByte(),
+                        'f'.code.toByte(),
+                        0,
+                        0
+                    )
+                ) {
+                    continue
+                }
+                val setpoint = ByteBuffer.allocate(4).put(pkt.data, addrend + 4, 4).getFloat(0)
 
-                        synchronized(pokeys) {
-                            serial!!.write(byteArrayOf(0x01) + pokeys, 0)
-                        }
-                    } catch(e: Exception) {
-//                        log("oops")
+                log("ahahaha $addr $setpoint")
+                val idx = addr.split("_")[1].toInt()
+                synchronized(pokeys) {
+                    pokeys[idx] = (setpoint * 255.0f).toInt().toByte()
+                }
+//                log("got udp lmao length ${pkt.length}")
+            } catch (_: SocketTimeoutException) {
+                if (threadNetworkInst!!.isInterrupted) return
+            } catch (_: InterruptedException) {
+                return
+            } catch (e: Exception) {
+                toast("error in network thread $e")
+            }
+        }
+    }
+
+    var threadSerialInst: Thread? = null
+    fun threadSerial() {
+        var count = 0
+        while (true) {
+            count = (count + 1) % 100
+            if (count == 0) {
+                log("stored: " + pokeys.toList().toString())
+            }
+            if (serial != null) {
+                try {
+                    if (serial?.isOpen != true) {
+                        throw IOException()
                     }
+                    val send = synchronized(pokeys) { byteArrayOf(0x01) + pokeys }
+
+                    if (count == 0) {
+                        log("sent: " + send.toList().toString())
+                    }
+                    runOnUiThread {
+                        serial!!.write(send, 10)
+                    }
+                } catch (_: IOException) {
+                    toast("IO error, closing port")
+                    setStatus("serial", "closed")
+                    serial = null
+                } catch (e: Exception) {
+                    toast("error in serial thread $e")
                 }
             }
-        }, 0, 100)
-
-        try {
-//            val osc = OSCPortIn(InetSocketAddress(9001))
-//
-//            osc.dispatcher.addListener(OSCPatternAddressMessageSelector("/")) { ev ->
-//                val idx = ev.message.address.split("C")[1].toInt()
-//                log("got OSC on $idx: ${ev.message.arguments}")
-//            }
-//            osc.startListening()
-//            log("started osc :3")
-
-            Thread {
-                val sock = DatagramSocket(9001)
-                while (true) {
-                    try {
-                        val pkt = DatagramPacket(ByteArray(256), 256)
-                        sock.receive(pkt)
-                        val addrlen = pkt.data.indexOf(0)
-                        val addr = pkt.data.decodeToString(0, addrlen)
-                        val addrend = (addrlen + 4) / 4 * 4
-                        if (!addr.startsWith("/avatar/parameters/SkyHaptics")) {
-                            continue
-                        }
-                        if (pkt.data.slice(addrend until addrend + 4) != listOf(','.code.toByte(), 'f'.code.toByte(), 0, 0)) {
-                            continue
-                        }
-                        val thingy = ByteBuffer.allocate(4).put(pkt.data, addrend + 4, 4).getFloat(0)
-
-                        log("ahahaha $addr $thingy")
-                        val idx = addr.split("C")[1].toInt()
-                        synchronized(pokeys) {
-                            pokeys[POINT_MAP[idx]!!] = (thingy * 255.0f).toInt().toByte()
-                        }
-//                        log("got udp lmao length ${pkt.length}")
-                    } catch (e: Exception) {
-                        log("asdf $e")
-                    }
-                }
-            }.start()
-        } catch (e: Exception) {
-            log(":( $e")
+            Thread.sleep(10)
         }
-    }
-
-    override fun onNewIntent(intent: Intent?) {
-        if (intent?.action == "android.hardware.usb.action.USB_DEVICE_ATTACHED") {
-            super.onNewIntent(intent)
-        }
-        log("detected")
-        openSerial()
     }
 
     class UsbReceiver(val act: MainActivity) : BroadcastReceiver() {
