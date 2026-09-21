@@ -153,7 +153,7 @@ class MainActivity : ComponentActivity() {
         val x = driver.ports[0] // Most devices have just one port (port 0)
         x.open(connection)
         x.setParameters(115200, 8, UsbSerialPort.STOPBITS_1, UsbSerialPort.PARITY_NONE)
-        x.write(byteArrayOf(0x00), 0)
+        x.write(byteArrayOf(0x00, 0x02, 0x01), 0)
         serial = x
 
         setStatus("serial", "open")
@@ -161,6 +161,8 @@ class MainActivity : ComponentActivity() {
 
     var threadNetworkInst: Thread? = null
     fun threadNetwork() {
+        var packetsReceived = 0
+
         setStatus("network", "opening")
         val sock = try {
             DatagramSocket(PORT)
@@ -194,6 +196,8 @@ class MainActivity : ComponentActivity() {
                 val setpoint = ByteBuffer.allocate(4).put(pkt.data, addrend + 4, 4).getFloat(0)
 
                 log("ahahaha $addr $setpoint")
+                packetsReceived += 1
+                setStatus("packets", packetsReceived.toString())
                 val idx = addr.split("_")[1].toInt()
                 synchronized(pokeys) {
                     pokeys[idx] = (setpoint * 255.0f).toInt().toByte()
@@ -238,7 +242,7 @@ class MainActivity : ComponentActivity() {
                     toast("error in serial thread $e")
                 }
             }
-            Thread.sleep(10)
+            Thread.sleep(100)
         }
     }
 
